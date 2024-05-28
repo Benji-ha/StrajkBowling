@@ -89,12 +89,14 @@ describe('Booking', () => {
   
         await waitFor(() => {
 
-        });
-
             expect(screen.getByText(/see you soon!/i)).toBeInTheDocument();
             expect(screen.getByDisplayValue(/2024-05-31 12:10/i)).toBeInTheDocument();
             expect(screen.getByDisplayValue('QWE123')).toBeInTheDocument();
             expect(screen.getByText("340 sek")).toBeInTheDocument();
+
+        });
+
+
 
 
 
