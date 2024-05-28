@@ -21,7 +21,7 @@ function Input({
         onChange={handleChange}
         defaultValue={defaultValue ? defaultValue : ''}
         disabled={disabled}
-        data-testid={`input-${name}`}
+        data-testid={`input-${label}`}
       />
     </section>
   );

@@ -5,8 +5,8 @@
           "https://h5jbtjv6if.execute-api.eu-north-1.amazonaws.com",
           async ({ request }) => {
 
-            const bookingInfo = await request.json();
-            console.log('Mock POST request:', bookingInfo);
+            await request.json();
+
 
             return HttpResponse.json(
               {

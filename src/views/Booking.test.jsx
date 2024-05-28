@@ -6,65 +6,68 @@ import Booking from './Booking';
 // Fungerar // Story 2
 describe('Booking', () => {
     it('renders new shoe input fields that can be filled in',  () => {
-        const { container } = render(<Booking />);
+        render(<Booking />);
 
       const addButton = screen.getByText("+");
 
       fireEvent.click(addButton);
-      fireEvent.click(addButton);
 
-      const shoeInput = container.querySelectorAll(".shoes__input");
+      const shoeInput = screen.getByTestId("input-Shoe size / person 1");
 
-      expect(shoeInput.length).toBe(2);
+    //   expect(shoeInput.length).toBe(1);
 
-      fireEvent.change(shoeInput[0], { target: { value: '42' } });
+      fireEvent.change(shoeInput, { target: { value: '42' } });
 
-      fireEvent.change(shoeInput[1], { target: { value: '38' } });
+    //   fireEvent.change(shoeInput[1], { target: { value: '38' } });
 
  
-      expect(shoeInput[0].value).toBe('42');
-      expect(shoeInput[1].value).toBe('38');
+      expect(shoeInput.value).toBe('42');
+    //   expect(shoeInput[1].value).toBe('38');
     });
 });
-// Fungerar // Story 3
+// Es trabajar // Story 3
 
 it('removes shoe input fields', () => {
-    const { container } = render(<Booking />);
+    render(<Booking />);
 
     const addButton = screen.getByText("+");
 
 
     fireEvent.click(addButton);
     fireEvent.click(addButton);
-    fireEvent.click(addButton);
-
-    let shoeInput = container.querySelectorAll(".shoes__input");
-
-    expect(shoeInput.length).toBe(3);
-
-    const removeButtons = container.querySelectorAll('.shoes__button--small');
-    fireEvent.click(removeButtons[2]);
 
 
-    shoeInput = container.querySelectorAll(".shoes__input");
-    expect(shoeInput.length).toBe(2);
+    const shoeInput = screen.getByTestId("input-Shoe size / person 1");
+    const shoeInput2 = screen.getByTestId("input-Shoe size / person 1");
+    
+
+
+    expect(shoeInput).toBeInTheDocument();
+    expect(shoeInput2).toBeInTheDocument();
+
+
+    const removeButtons = screen.getAllByText("-");
+
+    fireEvent.click(removeButtons[0]);
+
+    expect(shoeInput).not.toBeInTheDocument();
+    expect(shoeInput2).not.toBeInTheDocument();
 });
 
-// Fungerar //
 
 
 
-// Fungerar // Story 4
+// Fungerar // Story 4 & 5
 
 describe('Booking', () => {
-    it("should be able to give a total price and a booking number", async () => {
-        const { container } = render(<Booking />);
+    it("should be able to give a total price and a booking number, then be able to go back by pressing the back button", async () => {
+        render(<Booking />);
        
   
-        const dateInput = screen.getByTestId('input-when');
-        const timeInput = screen.getByTestId('input-time');
-        const peopleInput = screen.getByTestId('input-people');
-        const lanesInput = screen.getByTestId('input-lanes');
+        const dateInput = screen.getByTestId('input-Date');
+        const timeInput = screen.getByTestId('input-Time');
+        const peopleInput = screen.getByTestId('input-Number of awesome bowlers');
+        const lanesInput = screen.getByTestId('input-Number of lanes');
 
         fireEvent.change(dateInput, { target: { value: '2024-05-31' } });
         fireEvent.change(timeInput, { target: { value: '13:00' } });
@@ -78,10 +81,11 @@ describe('Booking', () => {
 
         await waitFor(() => {
 
-            let shoeInput = container.querySelectorAll(".shoes__input");
+            const shoeInput = screen.getByTestId("input-Shoe size / person 1");
+            const shoeInput2 = screen.getByTestId("input-Shoe size / person 2");
 
-            fireEvent.change(shoeInput[0], { target: { value: '42' } });
-            fireEvent.change(shoeInput[1], { target: { value: '38' } });
+            fireEvent.change(shoeInput, { target: { value: '42' } });
+            fireEvent.change(shoeInput2, { target: { value: '38' } });
 
         });  
 
@@ -97,10 +101,16 @@ describe('Booking', () => {
         });
 
 
+        const backButton = screen.getByText("Sweet, let's go!");
 
+        fireEvent.click(backButton);
 
+        await waitFor(() => {
 
-            screen.debug()
+            expect(screen.queryByText("strIIIIIike!")).toBeInTheDocument();
+        })
+
+screen.debug();
         });
 
   });

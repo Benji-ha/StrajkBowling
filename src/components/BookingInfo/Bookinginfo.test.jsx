@@ -11,10 +11,10 @@ describe('BookingInfo', () => {
     it("Has inputs that can take date, time, player amount and lanes", async () => {
       render(<BookingInfo />);
   
-        const dateInput = screen.getByTestId('input-when');
-        const timeInput = screen.getByTestId('input-time');
-        const peopleInput = screen.getByTestId('input-people');
-        const lanesInput = screen.getByTestId('input-lanes');
+        const dateInput = screen.getByTestId('input-Date');
+        const timeInput = screen.getByTestId('input-Time');
+        const peopleInput = screen.getByTestId('input-Number of awesome bowlers');
+        const lanesInput = screen.getByTestId('input-Number of lanes');
   
         fireEvent.change(dateInput, {target: { value: '2024-05-31'}});
         fireEvent.change(timeInput, { target: { value: '14:00' } });
